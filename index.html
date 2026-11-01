@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devansh Lamba Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  /* Layout idea: one narrow column inside a HUD frame, over a rainy night skyline with a sweeping searchlight. */
+  :root {
+    --night: #020308;
+    --ink: #eef1f7;
+    --mute: #8e99b0;
+    --gold: #ffb800;
+    --holo: #5ee7ff;
+    --line: rgba(94, 231, 255, 0.28);
+    --font-display: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+    --font-mono: 'Share Tech Mono', ui-monospace, 'Courier New', monospace;
+    --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --cut: 14px;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--night); }
+  body {
+    margin: 0; min-height: 100vh;
+    background:
+      radial-gradient(80% 40% at 50% 100%, rgba(255, 150, 20, 0.22), transparent 70%),
+      linear-gradient(180deg, #010206 0%, #060a14 55%, #0d0f18 100%);
+    background-color: var(--night);
+    color: var(--ink); font-family: var(--font-body); line-height: 1.5;
+    display: flex; justify-content: center; overflow-x: hidden;
+  }
+
+  /* Atmosphere */
+  .rain, .rain2 { position: fixed; inset: -200px 0 0 0; z-index: 0; pointer-events: none; }
+  .rain {
+    background: repeating-linear-gradient(103deg, transparent 0 9px, rgba(170, 200, 235, 0.13) 9px 10px);
+    background-size: 140px 220px; animation: fall 0.55s linear infinite;
+  }
+  .rain2 {
+    background: repeating-linear-gradient(103deg, transparent 0 17px, rgba(170, 200, 235, 0.08) 17px 18px);
+    background-size: 230px 320px; animation: fall 0.9s linear infinite;
+  }
+  @keyframes fall { to { background-position: -40px 220px; } }
+  .beam {
+    position: fixed; left: 8%; bottom: 0; width: 340px; height: 120vh; z-index: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(205, 225, 255, 0.2), rgba(205, 225, 255, 0.04) 70%, transparent);
+    clip-path: polygon(46% 100%, 54% 100%, 100% 0, 0 0);
+    transform-origin: 50% 100%; animation: sweep 11s ease-in-out infinite alternate;
+  }
+  .beam.b2 { left: auto; right: 6%; width: 280px; animation-duration: 14s; animation-delay: -5s; opacity: 0.7; }
+  @keyframes sweep { from { transform: rotate(-22deg); } to { transform: rotate(18deg); } }
+  #sky { position: fixed; left: 0; right: 0; bottom: 0; width: 100%; height: 190px; z-index: 0; pointer-events: none; }
+  .vig { position: fixed; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.7) 100%); }
+  .scan { position: fixed; inset: 0; z-index: 2; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px); }
+
+  /* HUD */
+  .hud { position: fixed; z-index: 3; pointer-events: none; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--holo); text-transform: uppercase; }
+  .hud b { color: var(--gold); font-weight: 400; }
+  .hud.tl { top: 18px; left: 22px; } .hud.tr { top: 18px; right: 22px; text-align: right; }
+  .hud.bl { bottom: 16px; left: 22px; } .hud.br { bottom: 16px; right: 22px; text-align: right; }
+  .brk { position: fixed; z-index: 3; width: 26px; height: 26px; pointer-events: none; border: 0 solid var(--holo); opacity: 0.75; }
+  .brk.a { top: 10px; left: 10px; border-top-width: 2px; border-left-width: 2px; }
+  .brk.b { top: 10px; right: 10px; border-top-width: 2px; border-right-width: 2px; }
+  .brk.c { bottom: 10px; left: 10px; border-bottom-width: 2px; border-left-width: 2px; }
+  .brk.d { bottom: 10px; right: 10px; border-bottom-width: 2px; border-right-width: 2px; }
+  @media (max-width: 520px) { .hud.tr, .hud.br { display: none; } }
+
+  main { position: relative; z-index: 1; width: 100%; max-width: 480px; padding: 64px 16px 150px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+
+  /* Identity ring */
+  .ring { position: relative; width: 132px; height: 132px; display: grid; place-items: center; }
+  .ring i { position: absolute; border-radius: 50%; inset: 0; }
+  .ring .o { border: 1px dashed var(--holo); opacity: 0.75; animation: spin 18s linear infinite; }
+  .ring .m { inset: 9px; border: 2px solid transparent; border-top-color: var(--gold); border-bottom-color: var(--gold); animation: spin 7s linear infinite reverse; }
+  .ring .n { inset: 20px; border: 1px solid var(--line); box-shadow: 0 0 34px rgba(255, 184, 0, 0.28), inset 0 0 24px rgba(94, 231, 255, 0.14); background: radial-gradient(circle, #0d1426, #04060d); }
+  .ring span { position: relative; font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.06em; color: var(--gold); text-shadow: 0 0 18px rgba(255, 184, 0, 0.6); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .who { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  h1 { font-family: var(--font-display); font-weight: 400; font-size: 3.4rem; letter-spacing: 0.05em; line-height: 0.95; margin: 0; text-transform: uppercase; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8); }
+  .tag { margin: 0; font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: #b5c0d6; max-width: 36ch; text-wrap: balance; }
+  .tag b { color: var(--gold); font-weight: 400; text-shadow: 0 0 14px rgba(255, 184, 0, 0.55); }
+  .tag::after { content: "_"; color: var(--gold); animation: blink 1s steps(2, start) infinite; margin-left: 2px; }
+  @keyframes blink { to { visibility: hidden; } }
+  .loc { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); margin: 0; }
+
+  /* Links */
+  .links { width: 100%; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; list-style: none; }
+  .link {
+    position: relative; display: flex; align-items: center; gap: 16px;
+    padding: 14px 20px 14px 18px; min-height: 68px; text-decoration: none; color: var(--ink);
+    background: var(--line);
+    clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+    transition: transform .15s, background .2s;
+  }
+  .link::before {
+    content: ""; position: absolute; inset: 1px; z-index: 0;
+    background: linear-gradient(160deg, rgba(14, 22, 40, 0.92), rgba(4, 6, 12, 0.94));
+    clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+    transition: background .2s;
+  }
+  .link > * { position: relative; z-index: 1; }
+  .link:hover { transform: translateX(4px); background: var(--gold); }
+  .link:hover::before { background: linear-gradient(160deg, rgba(34, 26, 6, 0.94), rgba(6, 6, 10, 0.96)); }
+  .link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .link .idx { font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold); flex: none; }
+  .link .l { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .link .name { font-family: var(--font-display); font-size: 1.7rem; letter-spacing: 0.06em; line-height: 1.05; text-transform: uppercase; }
+  .link .url { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.06em; color: var(--holo); overflow-wrap: anywhere; }
+  .link .go { font-family: var(--font-mono); color: var(--gold); flex: none; transition: transform .15s; }
+  .link:hover .go { transform: translate(3px, -3px); }
+  .link.main { background: var(--gold); }
+  .link.main::before { background: linear-gradient(160deg, #ffc21f, #e69f00); }
+  .link.main, .link.main .idx, .link.main .go { color: #140c00; }
+  .link.main .url { color: rgba(20, 12, 0, 0.75); }
+  .link.main:hover { background: #ffd24d; }
+  .link.main:hover::before { background: linear-gradient(160deg, #ffd24d, #f0a900); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rain, .rain2, .beam, .ring i, .tag::after { animation: none; }
+    .link, .link .go { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="beam" aria-hidden="true"></div>
+<div class="beam b2" aria-hidden="true"></div>
+<div class="rain" aria-hidden="true"></div>
+<div class="rain2" aria-hidden="true"></div>
+<svg id="sky" aria-hidden="true" preserveAspectRatio="xMidYMax slice"></svg>
+<div class="vig" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+
+<i class="brk a" aria-hidden="true"></i><i class="brk b" aria-hidden="true"></i><i class="brk c" aria-hidden="true"></i><i class="brk d" aria-hidden="true"></i>
+<div class="hud tl" aria-hidden="true">DL // Link hub <b>online</b></div>
+<div class="hud tr" aria-hidden="true"><b id="clock">--:--:--</b> IST</div>
+<div class="hud bl" aria-hidden="true">Pune, IN</div>
+<div class="hud br" aria-hidden="true">18.52°N 73.86°E</div>
+
+<main>
+  <div class="ring" aria-hidden="true"><i class="o"></i><i class="m"></i><i class="n"></i><span>DL</span></div>
+  <div class="who">
+    <h1>Devansh Lamba</h1>
+    <p class="tag">There will always be a story. I'll always be the <b>hero.</b></p>
+    <p class="loc">Pune, India</p>
+  </div>
+
+  <ul class="links">
+    <li><a class="link main" href="https://theleadloop.in" target="_blank" rel="noopener">
+      <span class="idx">01</span><span class="l"><span class="name">LeadLoop</span><span class="url">theleadloop.in · my company</span></span><span class="go">↗</span></a></li>
+    <li><a class="link" href="https://devanshlamba.in" target="_blank" rel="noopener">
+      <span class="idx">02</span><span class="l"><span class="name">Portfolio</span><span class="url">devanshlamba.in</span></span><span class="go">↗</span></a></li>
+    <li><a class="link" href="https://www.youtube.com/@devanshlamba" target="_blank" rel="noopener">
+      <span class="idx">03</span><span class="l"><span class="name">YouTube</span><span class="url">@devanshlamba</span></span><span class="go">↗</span></a></li>
+    <li><a class="link" href="https://x.com/devanshlamba" target="_blank" rel="noopener">
+      <span class="idx">04</span><span class="l"><span class="name">X (Twitter)</span><span class="url">@devanshlamba</span></span><span class="go">↗</span></a></li>
+    <li><a class="link" href="https://github.com/devanshlamba" target="_blank" rel="noopener">
+      <span class="idx">05</span><span class="l"><span class="name">GitHub</span><span class="url">github.com/devanshlamba</span></span><span class="go">↗</span></a></li>
+    <li><a class="link" href="https://in.linkedin.com/in/devanshlamba" target="_blank" rel="noopener">
+      <span class="idx">06</span><span class="l"><span class="name">LinkedIn</span><span class="url">in/devanshlamba</span></span><span class="go">↗</span></a></li>
+    <li><a class="link" href="mailto:devansh@devanshlamba.in">
+      <span class="idx">07</span><span class="l"><span class="name">Email</span><span class="url">devansh@devanshlamba.in</span></span><span class="go">↗</span></a></li>
+  </ul>
+</main>
+
+<script>
+(function () {
+  /* Skyline: dark towers with a few lit windows */
+  var svg = document.getElementById('sky'), W = 1200, H = 190, NS = 'http://www.w3.org/2000/svg';
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  var x = -10, out = '';
+  while (x < W) {
+    var w = 34 + Math.random() * 56, h = 40 + Math.random() * 140;
+    out += '<rect x="' + x.toFixed(1) + '" y="' + (H - h).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" fill="#05070d" stroke="#0c1220" stroke-width="1"/>';
+    for (var wy = H - h + 8; wy < H - 6; wy += 9) {
+      for (var wx = x + 5; wx < x + w - 6; wx += 8) {
+        if (Math.random() < 0.18) {
+          var c = Math.random() < 0.7 ? '#ffb347' : (Math.random() < 0.5 ? '#ffffff' : '#7fe3ff');
+          out += '<rect x="' + wx.toFixed(1) + '" y="' + wy.toFixed(1) + '" width="3" height="4" fill="' + c + '" opacity="' + (0.45 + Math.random() * 0.5).toFixed(2) + '"/>';
+        }
+      }
+    }
+    x += w + 2 + Math.random() * 6;
+  }
+  svg.innerHTML = out;
+
+  /* HUD clock */
+  var el = document.getElementById('clock');
+  function tick() { try { el.textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata' }); } catch (e) {} }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>

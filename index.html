@@ -6,9 +6,11 @@
 <title>Devansh Lamba Links</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-  /* Layout idea: one narrow column inside a HUD frame, over a rainy night skyline with a sweeping searchlight. */
+  /* Layout idea: an ecosystem hub (DL core wired to every platform), then one "signal" spine
+     that connects the link list to the live YouTube and Instagram feeds, over a rainy night skyline. */
   :root {
     --night: #020308;
     --ink: #eef1f7;
@@ -23,7 +25,7 @@
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
-  html { background: var(--night); }
+  html { background: var(--night); scroll-behavior: smooth; }
   body {
     margin: 0; min-height: 100vh;
     background:
@@ -54,8 +56,8 @@
   .beam.b2 { left: auto; right: 6%; width: 280px; animation-duration: 14s; animation-delay: -5s; opacity: 0.7; }
   @keyframes sweep { from { transform: rotate(-22deg); } to { transform: rotate(18deg); } }
   #sky { position: fixed; left: 0; right: 0; bottom: 0; width: 100%; height: 190px; z-index: 0; pointer-events: none; }
-  .vig { position: fixed; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.7) 100%); }
-  .scan { position: fixed; inset: 0; z-index: 2; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px); }
+  .vig { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.7) 100%); }
+  .scan { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px); }
 
   /* HUD */
   .hud { position: fixed; z-index: 3; pointer-events: none; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--holo); text-transform: uppercase; }
@@ -69,15 +71,35 @@
   .brk.d { bottom: 10px; right: 10px; border-bottom-width: 2px; border-right-width: 2px; }
   @media (max-width: 520px) { .hud.tr, .hud.br { display: none; } }
 
-  main { position: relative; z-index: 1; width: 100%; max-width: 480px; padding: 64px 16px 150px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+  main { position: relative; z-index: 2; width: 100%; max-width: 540px; padding: 56px 16px 160px; display: flex; flex-direction: column; align-items: center; gap: 26px; }
 
-  /* Identity ring */
-  .ring { position: relative; width: 132px; height: 132px; display: grid; place-items: center; }
+  /* Ecosystem hub: DL core wired to every platform node */
+  .eco { position: relative; width: min(100%, 380px); aspect-ratio: 1; container-type: inline-size; margin-bottom: 10px; }
+  .eco svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .eco .orbit { fill: none; stroke: var(--line); stroke-width: 0.3; stroke-dasharray: 0.8 1.4; }
+  .eco .wire { stroke: rgba(94, 231, 255, 0.35); stroke-width: 0.35; transition: stroke .2s, stroke-width .2s; }
+  .eco .wire.hot { stroke: var(--gold); stroke-width: 0.7; }
+  .eco .pkt { fill: var(--gold); }
+  .eco .pkt.c { fill: var(--holo); }
+  .nd {
+    position: absolute; transform: translate(-50%, -50%); width: clamp(40px, 13cqw, 50px); aspect-ratio: 1; border-radius: 50%;
+    display: grid; place-items: center; text-decoration: none; color: var(--holo);
+    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.04em;
+    border: 1px solid var(--holo); background: radial-gradient(circle, #0d1426, #04060d);
+    box-shadow: 0 0 14px rgba(94, 231, 255, 0.22); transition: border-color .2s, color .2s, box-shadow .2s, transform .2s;
+  }
+  .nd b { position: absolute; top: calc(100% + 5px); left: 50%; transform: translateX(-50%); font-weight: 400; font-size: 0.58rem; letter-spacing: 0.14em; color: var(--mute); white-space: nowrap; text-transform: uppercase; transition: color .2s; }
+  .nd:hover, .nd.hot { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 22px rgba(255, 184, 0, 0.5); transform: translate(-50%, -50%) scale(1.08); }
+  .nd:hover b, .nd.hot b { color: var(--gold); }
+  .nd.main { background: var(--gold); border-color: var(--gold); color: #140c00; box-shadow: 0 0 22px rgba(255, 184, 0, 0.45); }
+
+  /* Identity ring (core of the hub) */
+  .ring { position: absolute; left: 50%; top: 50%; width: 36%; aspect-ratio: 1; transform: translate(-50%, -50%); display: grid; place-items: center; }
   .ring i { position: absolute; border-radius: 50%; inset: 0; }
   .ring .o { border: 1px dashed var(--holo); opacity: 0.75; animation: spin 18s linear infinite; }
-  .ring .m { inset: 9px; border: 2px solid transparent; border-top-color: var(--gold); border-bottom-color: var(--gold); animation: spin 7s linear infinite reverse; }
-  .ring .n { inset: 20px; border: 1px solid var(--line); box-shadow: 0 0 34px rgba(255, 184, 0, 0.28), inset 0 0 24px rgba(94, 231, 255, 0.14); background: radial-gradient(circle, #0d1426, #04060d); }
-  .ring span { position: relative; font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.06em; color: var(--gold); text-shadow: 0 0 18px rgba(255, 184, 0, 0.6); }
+  .ring .m { inset: 7%; border: 2px solid transparent; border-top-color: var(--gold); border-bottom-color: var(--gold); animation: spin 7s linear infinite reverse; }
+  .ring .n { inset: 15%; border: 1px solid var(--line); box-shadow: 0 0 34px rgba(255, 184, 0, 0.28), inset 0 0 24px rgba(94, 231, 255, 0.14); background: radial-gradient(circle, #0d1426, #04060d); }
+  .ring span { position: relative; font-family: var(--font-display); font-size: clamp(1.7rem, 9.5cqw, 2.5rem); letter-spacing: 0.06em; color: var(--gold); text-shadow: 0 0 18px rgba(255, 184, 0, 0.6); }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .who { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; }
@@ -87,6 +109,32 @@
   .tag::after { content: "_"; color: var(--gold); animation: blink 1s steps(2, start) infinite; margin-left: 2px; }
   @keyframes blink { to { visibility: hidden; } }
   .loc { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); margin: 0; }
+
+  /* Signal spine: one wire running through every section, with a packet travelling down it */
+  .signal { position: relative; width: 100%; padding: 18px 0 0 26px; display: flex; flex-direction: column; gap: 48px; }
+  .signal::before { content: ""; position: absolute; left: 7px; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--holo), rgba(94, 231, 255, 0.18) 85%, transparent); opacity: 0.7; }
+  .signal::after { content: ""; position: absolute; left: 6px; top: 0; width: 3px; height: 56px; border-radius: 2px; background: linear-gradient(transparent, var(--gold)); box-shadow: 0 0 10px var(--gold); animation: down 6s linear infinite; }
+  @keyframes down { from { top: 0; opacity: 1; } 90% { opacity: 1; } to { top: calc(100% - 56px); opacity: 0; } }
+  .sec { position: relative; min-width: 0; display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 24px; }
+  .sec::before { content: ""; position: absolute; left: -24px; top: 3px; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--gold); background: var(--night); box-shadow: 0 0 12px rgba(255, 184, 0, 0.6); }
+  .sec-h { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .kick { margin: 0; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--holo); }
+  .kick b { color: var(--gold); font-weight: 400; }
+  h2 { margin: 2px 0 0; font-family: var(--font-display); font-weight: 400; font-size: 2.3rem; letter-spacing: 0.05em; line-height: 1; text-transform: uppercase; }
+  h3 { margin: 0; font-family: var(--font-mono); font-weight: 400; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; text-decoration: none;
+    font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #140c00; background: var(--gold); clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    transition: background .2s;
+  }
+  .pill:hover { background: #ffd24d; }
+  .pill:focus-visible { outline: 2px solid var(--holo); outline-offset: 3px; }
+  .live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); }
+  .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mute); }
+  .live.on { color: var(--holo); }
+  .live.on::before { background: #3dff9a; box-shadow: 0 0 8px #3dff9a; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.35; } }
 
   /* Links */
   .links { width: 100%; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; list-style: none; }
@@ -120,9 +168,92 @@
   .link.main:hover { background: #ffd24d; }
   .link.main:hover::before { background: linear-gradient(160deg, #ffd24d, #f0a900); }
 
+  /* Video cards and rails */
+  .rail-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
+  .ctl { display: flex; gap: 6px; }
+  .ctl button, .chip {
+    font: inherit; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--holo); background: rgba(4, 6, 12, 0.85); border: 1px solid var(--line); padding: 5px 10px; cursor: pointer;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .ctl button { width: 32px; padding: 5px 0; }
+  .ctl button:hover, .chip:hover { color: var(--gold); border-color: var(--gold); }
+  .chip[aria-pressed="true"] { color: #140c00; background: var(--gold); border-color: var(--gold); }
+  .ctl button:focus-visible, .chip:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .rail {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    margin-right: -16px; padding: 2px 16px 10px 0; scrollbar-width: thin; scrollbar-color: rgba(255, 184, 0, 0.6) transparent;
+  }
+  .rail > * { flex: 0 0 72%; scroll-snap-align: start; }
+  .rail.tall > * { flex-basis: 44%; }
+  @media (min-width: 560px) { .rail > * { flex-basis: 60%; } .rail.tall > * { flex-basis: 36%; } }
+
+  .vid { display: flex; flex-direction: column; gap: 8px; min-width: 0; text-decoration: none; color: var(--ink); }
+  .vid .th {
+    position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: #0a1020;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .vid.short .th { aspect-ratio: 9 / 16; }
+  .vid .th::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow .2s; }
+  .vid img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.92) contrast(1.05); transition: transform .35s, filter .35s; }
+  .vid:hover img { transform: scale(1.05); filter: saturate(1.1) contrast(1.05); }
+  .vid:hover .th::after { box-shadow: inset 0 0 0 2px var(--gold); }
+  .vid:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .vid .play {
+    position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; transform: translate(-50%, -50%); border-radius: 50%;
+    display: grid; place-items: center; padding-left: 3px; font-size: 1rem; color: #140c00; background: rgba(255, 184, 0, 0.92);
+    box-shadow: 0 0 22px rgba(255, 184, 0, 0.55); opacity: 0.9; transition: transform .2s, opacity .2s;
+  }
+  .vid:hover .play { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+  .vid .dur, .vid .badge { position: absolute; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; padding: 2px 6px; }
+  .vid .dur { right: 8px; bottom: 8px; background: rgba(2, 3, 8, 0.85); color: var(--ink); }
+  .vid .badge { left: 0; top: 12px; background: var(--gold); color: #140c00; text-transform: uppercase; letter-spacing: 0.14em; padding: 3px 10px; }
+  .vid .meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .vid .t { font-size: 0.92rem; font-weight: 500; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .vid .s { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; color: var(--holo); }
+  .vid.feat .t { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; letter-spacing: 0.04em; line-height: 1.05; text-transform: uppercase; }
+  .vid.feat .play { width: 62px; height: 62px; font-size: 1.3rem; }
+  .vid.short .meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 10px 10px; background: linear-gradient(transparent, rgba(2, 3, 8, 0.92)); }
+  .vid.short { position: relative; }
+  .vid.short .t { font-size: 0.8rem; }
+  .vid.short .play { width: 38px; height: 38px; font-size: 0.85rem; }
+
+  /* Instagram */
+  .ig-card { display: flex; align-items: center; gap: 14px; padding: 14px 16px; text-decoration: none; color: var(--ink); border: 1px solid var(--line); background: linear-gradient(160deg, rgba(14, 22, 40, 0.92), rgba(4, 6, 12, 0.94)); transition: border-color .2s; }
+  .ig-card:hover { border-color: var(--gold); }
+  .ig-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .ig-av { flex: none; width: 54px; height: 54px; border-radius: 50%; padding: 2px; background: conic-gradient(from 200deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75); }
+  .ig-av span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: #04060d; border: 2px solid #04060d; font-family: var(--font-display); font-size: 1.3rem; color: var(--gold); letter-spacing: 0.05em; }
+  .ig-card .l { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+  .ig-card .name { overflow-wrap: anywhere; font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.05em; line-height: 1.05; }
+  .ig-card .url { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--holo); }
+  @media (max-width: 420px) { .ig-card .pill { display: none; } }
+  .rail[hidden] { display: none; }
+  .ig-rail > * { flex: 0 0 326px; max-width: 326px; }
+  .ig-rail .instagram-media { margin: 0 !important; min-width: 0 !important; width: 100% !important; border-radius: 0 !important; }
+
+  .end { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .end a { color: var(--holo); text-decoration: none; }
+  .end a:hover { color: var(--gold); }
+
+  /* Player */
+  dialog#player { padding: 0; border: 1px solid var(--holo); background: #04060d; color: var(--ink); width: min(92vw, 960px); max-height: 92vh; box-shadow: 0 0 60px rgba(94, 231, 255, 0.2); }
+  dialog#player.short { width: min(92vw, calc(78vh * 9 / 16)); }
+  dialog#player::backdrop { background: rgba(1, 2, 6, 0.86); backdrop-filter: blur(4px); }
+  .pl-frame { aspect-ratio: 16 / 9; background: #000; }
+  dialog#player.short .pl-frame { aspect-ratio: 9 / 16; }
+  .pl-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .pl-bar { display: flex; align-items: center; gap: 12px; padding: 10px 12px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; }
+  .pl-bar span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--mute); }
+  .pl-bar a { color: var(--gold); text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+  .pl-bar button { font: inherit; text-transform: uppercase; color: var(--holo); background: none; border: 1px solid var(--line); padding: 4px 10px; cursor: pointer; white-space: nowrap; }
+  .pl-bar button:hover { color: var(--gold); border-color: var(--gold); }
+
   @media (prefers-reduced-motion: reduce) {
-    .rain, .rain2, .beam, .ring i, .tag::after { animation: none; }
-    .link, .link .go { transition: none; }
+    html { scroll-behavior: auto; }
+    .rain, .rain2, .beam, .ring i, .tag::after, .live.on::before { animation: none; }
+    .signal::after { display: none; }
+    .link, .link .go, .vid img, .vid .play, .nd { transition: none; }
   }
 </style>
 </head>
@@ -136,41 +267,134 @@
 <div class="scan" aria-hidden="true"></div>
 
 <i class="brk a" aria-hidden="true"></i><i class="brk b" aria-hidden="true"></i><i class="brk c" aria-hidden="true"></i><i class="brk d" aria-hidden="true"></i>
-<div class="hud tl" aria-hidden="true">DL // Link hub <b>online</b></div>
+<div class="hud tl" aria-hidden="true">DL // Ecosystem <b>online</b></div>
 <div class="hud tr" aria-hidden="true"><b id="clock">--:--:--</b> IST</div>
 <div class="hud bl" aria-hidden="true">Pune, IN</div>
 <div class="hud br" aria-hidden="true">18.52°N 73.86°E</div>
 
-<main>
-  <div class="ring" aria-hidden="true"><i class="o"></i><i class="m"></i><i class="n"></i><span>DL</span></div>
+<main id="top">
+  <!-- The hub repeats the link list below, so it is hidden from assistive tech and skipped by Tab -->
+  <div class="eco" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><circle class="orbit" cx="50" cy="50" r="40"/><g id="wires"></g></svg>
+    <div class="ring"><i class="o"></i><i class="m"></i><i class="n"></i><span>DL</span></div>
+    <a class="nd main" data-node="0" style="left:50%;top:10%" href="https://theleadloop.in" target="_blank" rel="noopener" tabindex="-1">LL<b>LeadLoop</b></a>
+    <a class="nd" data-node="1" style="left:78.28%;top:21.72%" href="https://devanshlamba.in" target="_blank" rel="noopener" tabindex="-1">PF<b>Portfolio</b></a>
+    <a class="nd" data-node="2" style="left:90%;top:50%" href="#youtube" tabindex="-1">YT<b>YouTube</b></a>
+    <a class="nd" data-node="3" style="left:78.28%;top:78.28%" href="#instagram" tabindex="-1">IG<b>Instagram</b></a>
+    <a class="nd" data-node="4" style="left:50%;top:90%" href="https://x.com/devanshlamba" target="_blank" rel="noopener" tabindex="-1">X<b>X</b></a>
+    <a class="nd" data-node="5" style="left:21.72%;top:78.28%" href="https://github.com/devanshlamba" target="_blank" rel="noopener" tabindex="-1">GH<b>GitHub</b></a>
+    <a class="nd" data-node="6" style="left:10%;top:50%" href="https://in.linkedin.com/in/devanshlamba" target="_blank" rel="noopener" tabindex="-1">IN<b>LinkedIn</b></a>
+    <a class="nd" data-node="7" style="left:21.72%;top:21.72%" href="mailto:devansh@devanshlamba.in" tabindex="-1">@<b>Email</b></a>
+  </div>
+
   <div class="who">
     <h1>Devansh Lamba</h1>
     <p class="tag">There will always be a story. I'll always be the <b>hero.</b></p>
     <p class="loc">Pune, India</p>
   </div>
 
-  <ul class="links">
-    <li><a class="link main" href="https://theleadloop.in" target="_blank" rel="noopener">
-      <span class="idx">01</span><span class="l"><span class="name">LeadLoop</span><span class="url">theleadloop.in · my company</span></span><span class="go">↗</span></a></li>
-    <li><a class="link" href="https://devanshlamba.in" target="_blank" rel="noopener">
-      <span class="idx">02</span><span class="l"><span class="name">Portfolio</span><span class="url">devanshlamba.in</span></span><span class="go">↗</span></a></li>
-    <li><a class="link" href="https://www.youtube.com/@devanshlamba" target="_blank" rel="noopener">
-      <span class="idx">03</span><span class="l"><span class="name">YouTube</span><span class="url">@devanshlamba</span></span><span class="go">↗</span></a></li>
-    <li><a class="link" href="https://x.com/devanshlamba" target="_blank" rel="noopener">
-      <span class="idx">04</span><span class="l"><span class="name">X (Twitter)</span><span class="url">@devanshlamba</span></span><span class="go">↗</span></a></li>
-    <li><a class="link" href="https://github.com/devanshlamba" target="_blank" rel="noopener">
-      <span class="idx">05</span><span class="l"><span class="name">GitHub</span><span class="url">github.com/devanshlamba</span></span><span class="go">↗</span></a></li>
-    <li><a class="link" href="https://in.linkedin.com/in/devanshlamba" target="_blank" rel="noopener">
-      <span class="idx">06</span><span class="l"><span class="name">LinkedIn</span><span class="url">in/devanshlamba</span></span><span class="go">↗</span></a></li>
-    <li><a class="link" href="mailto:devansh@devanshlamba.in">
-      <span class="idx">07</span><span class="l"><span class="name">Email</span><span class="url">devansh@devanshlamba.in</span></span><span class="go">↗</span></a></li>
-  </ul>
+  <div class="signal">
+    <section class="sec" id="links" aria-labelledby="links-h">
+      <div class="sec-h"><div><p class="kick">Node <b>01</b> // Direct links</p><h2 id="links-h">Find me here</h2></div></div>
+      <ul class="links">
+        <li><a class="link main" data-node="0" href="https://theleadloop.in" target="_blank" rel="noopener">
+          <span class="idx">01</span><span class="l"><span class="name">LeadLoop</span><span class="url">theleadloop.in · my company</span></span><span class="go">↗</span></a></li>
+        <li><a class="link" data-node="1" href="https://devanshlamba.in" target="_blank" rel="noopener">
+          <span class="idx">02</span><span class="l"><span class="name">Portfolio</span><span class="url">devanshlamba.in</span></span><span class="go">↗</span></a></li>
+        <li><a class="link" data-node="2" href="https://www.youtube.com/@devanshlamba" target="_blank" rel="noopener">
+          <span class="idx">03</span><span class="l"><span class="name">YouTube</span><span class="url">@devanshlamba</span></span><span class="go">↗</span></a></li>
+        <li><a class="link" data-node="3" href="https://www.instagram.com/dvnshlamba/" target="_blank" rel="noopener">
+          <span class="idx">04</span><span class="l"><span class="name">Instagram</span><span class="url">@dvnshlamba</span></span><span class="go">↗</span></a></li>
+        <li><a class="link" data-node="4" href="https://x.com/devanshlamba" target="_blank" rel="noopener">
+          <span class="idx">05</span><span class="l"><span class="name">X (Twitter)</span><span class="url">@devanshlamba</span></span><span class="go">↗</span></a></li>
+        <li><a class="link" data-node="5" href="https://github.com/devanshlamba" target="_blank" rel="noopener">
+          <span class="idx">06</span><span class="l"><span class="name">GitHub</span><span class="url">github.com/devanshlamba</span></span><span class="go">↗</span></a></li>
+        <li><a class="link" data-node="6" href="https://in.linkedin.com/in/devanshlamba" target="_blank" rel="noopener">
+          <span class="idx">07</span><span class="l"><span class="name">LinkedIn</span><span class="url">in/devanshlamba</span></span><span class="go">↗</span></a></li>
+        <li><a class="link" data-node="7" href="mailto:devansh@devanshlamba.in">
+          <span class="idx">08</span><span class="l"><span class="name">Email</span><span class="url">devansh@devanshlamba.in</span></span><span class="go">↗</span></a></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="youtube" aria-labelledby="yt-h">
+      <div class="sec-h">
+        <div><p class="kick">Node <b>02</b> // YouTube <span class="live" id="yt-live">Cached</span></p><h2 id="yt-h">On the channel</h2></div>
+        <a class="pill" href="https://www.youtube.com/@devanshlamba?sub_confirmation=1" target="_blank" rel="noopener">Subscribe ↗</a>
+      </div>
+      <div id="feat"></div>
+
+      <div class="rail-h"><h3>More recent</h3><span class="ctl"><button type="button" data-rail="r-recent" data-dir="-1" aria-label="Scroll recent videos left">‹</button><button type="button" data-rail="r-recent" data-dir="1" aria-label="Scroll recent videos right">›</button></span></div>
+      <div class="rail" id="r-recent"></div>
+
+      <div class="rail-h"><h3>Best of the channel</h3><span class="ctl"><button type="button" data-rail="r-best" data-dir="-1" aria-label="Scroll best videos left">‹</button><button type="button" data-rail="r-best" data-dir="1" aria-label="Scroll best videos right">›</button></span></div>
+      <div class="rail" id="r-best"></div>
+
+      <div class="rail-h"><h3>Shorts</h3><span class="ctl"><button type="button" class="chip" data-sort="top" aria-pressed="true">Top</button><button type="button" class="chip" data-sort="new" aria-pressed="false">Latest</button></span></div>
+      <div class="rail tall" id="r-shorts"></div>
+      <noscript><a class="pill" href="https://www.youtube.com/@devanshlamba/videos">Watch all videos ↗</a></noscript>
+    </section>
+
+    <section class="sec" id="instagram" aria-labelledby="ig-h">
+      <div class="sec-h"><div><p class="kick">Node <b>03</b> // Instagram</p><h2 id="ig-h">Reels &amp; posts</h2></div></div>
+      <a class="ig-card" href="https://www.instagram.com/dvnshlamba/" target="_blank" rel="noopener">
+        <span class="ig-av"><span>DL</span></span>
+        <span class="l"><span class="name">@dvnshlamba</span><span class="url">instagram.com/dvnshlamba</span></span>
+        <span class="pill" aria-hidden="true">Follow ↗</span>
+      </a>
+      <div class="rail ig-rail" id="r-ig" hidden></div>
+    </section>
+
+    <footer class="end"><span>// End of signal · Devansh Lamba</span><a href="#top">Back to top ↑</a></footer>
+  </div>
 </main>
+
+<dialog id="player" aria-labelledby="pl-title">
+  <div class="pl-frame"></div>
+  <div class="pl-bar"><span id="pl-title"></span><a id="pl-open" href="https://www.youtube.com/@devanshlamba" target="_blank" rel="noopener">Open on YouTube ↗</a><button type="button" id="pl-close">Close ✕</button></div>
+</dialog>
 
 <script>
 (function () {
+  /* Instagram reels/posts to embed: paste full links, e.g. 'https://www.instagram.com/reel/ABC123/' */
+  var IG_POSTS = [];
+
+  /* Hand-picked best videos (most viewed long videos on the channel) */
+  var BEST = [
+    { id: 'mrKKPBv4Gys', title: 'Way To Goa | The Train Journey', dur: '10:21' },
+    { id: 'Eg5HixfbAlI', title: 'A Night Spent In Railway Station !', dur: '10:19' },
+    { id: 'Vxg7UuKDSs4', title: 'The Goa Vlog', dur: '8:38' },
+    { id: 'XndIBIXY16w', title: 'Exploring UNESCO Sites in Goa | Day 03', dur: '11:19' },
+    { id: 'HVeq3_J6FLY', title: 'Last Day In Goa | LTT Junction Pai Waiting Room JAL Gaya', dur: '12:55' },
+    { id: 'VA9_Fk72LnQ', title: 'A Day In Devgadh Travel Vlog | #1vlog of 2023 |', dur: '12:56' },
+    { id: 'Wa7ceEQQmGE', title: 'Exploring Hidden Sunrise Points Near Pune | Bopdev Ghat', dur: '6:58' }
+  ];
+
+  /* Snapshot of the channel feed, shown until /api/youtube returns the live list */
+  var FEED = [
+    { id: 'rL93J9WTwJw', title: 'Watching the FIFA World Cup Final in a Theatre! | Moto Vlog #1', published: '2026-07-21T11:40:09Z', views: 345 },
+    { id: 'sswCQbRnveQ', title: 'We Barely Survived This Train Ride to Goa 🚆💀| Mini Vlog # 1', published: '2026-06-17T13:47:09Z', views: 115, short: true },
+    { id: '7oGdfcKjqtA', title: 'Goa Is On 🚂💨', published: '2026-06-15T14:41:56Z', views: 444, short: true },
+    { id: 'Rn0Ka-lT5ws', title: 'Way To Goa 🚂💨', published: '2026-06-14T13:44:56Z', views: 1617, short: true },
+    { id: 'ICnU86VLSJQ', title: 'Sleeper Train Reality Check 🚂💨', published: '2026-06-14T04:53:05Z', views: 1078, short: true },
+    { id: '5KmZ4g1L25A', title: 'Living With Flatmates Be Like This 💀😂 | VLOG #5', published: '2026-05-11T09:25:47Z', views: 92 },
+    { id: 'Q8P6rs9xYrs', title: 'This City Never Stops Shocking Me | VLOG #4', published: '2026-05-08T14:15:04Z', views: 96 },
+    { id: 'YN9joIPhNWA', title: 'Relatable or not ?💻😵‍💫', published: '2026-03-28T11:57:48Z', views: 1117, short: true },
+    { id: 'n2nJeuhRu-Y', title: 'You don’t need healing anymore.', published: '2026-03-26T10:15:21Z', views: 1514, short: true },
+    { id: '7BMqOyk7zD8', title: 'Vlog Is Live , Go And Watch It Now !! #bikeride #morningride #vlog #royalenfield', published: '2026-02-21T12:20:32Z', views: 1270, short: true },
+    { id: '3cu0i3nq_jQ', title: 'I Woke Up at 5AM for This…', published: '2026-02-20T16:30:03Z', views: 147 },
+    { id: '97JXgkYK5J0', title: 'Just a glimpse. Full video on YouTube.', published: '2026-02-07T07:04:00Z', views: 1877, short: true },
+    { id: 'oMG_CSPjqc0', title: 'VLOG #1 | NO EXCUSES', published: '2026-02-04T15:05:48Z', views: 103 },
+    { id: 'fCc86O7K3CE', title: 'Monsoon Ride to 2000-Year-Old Caves + a Fort Trek?! 🛕⛰️ #Lonavla #KarlaCaves #LohgadFort', published: '2025-07-27T08:38:30Z', views: 1722, short: true },
+    { id: 'X8faw5wGbxA', title: 'EPISODE 1: Exploring Okayama Friendship Park | Hidden Japanese Garden in Pune 🇮🇳', published: '2025-07-26T10:30:30Z', views: 434 }
+  ];
+  /* The feed has no durations, so known ones are looked up here */
+  var DUR = { rL93J9WTwJw: '13:19', '5KmZ4g1L25A': '7:26', Q8P6rs9xYrs: '7:16', '3cu0i3nq_jQ': '8:09', oMG_CSPjqc0: '4:36', X8faw5wGbxA: '8:32' };
+
+  function $(id) { return document.getElementById(id); }
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* Skyline: dark towers with a few lit windows */
-  var svg = document.getElementById('sky'), W = 1200, H = 190, NS = 'http://www.w3.org/2000/svg';
+  var svg = $('sky'), W = 1200, H = 190;
   svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
   var x = -10, out = '';
   while (x < W) {
@@ -189,9 +413,142 @@
   svg.innerHTML = out;
 
   /* HUD clock */
-  var el = document.getElementById('clock');
+  var el = $('clock');
   function tick() { try { el.textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata' }); } catch (e) {} }
   tick(); setInterval(tick, 1000);
+
+  /* Ecosystem wires: core to each node, with data packets flowing both ways */
+  var wires = '', nodes = document.querySelectorAll('.eco .nd');
+  for (var i = 0; i < nodes.length; i++) {
+    var a = (-90 + i * 45) * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a);
+    var x1 = (50 + 20 * ca).toFixed(2), y1 = (50 + 20 * sa).toFixed(2), x2 = (50 + 33 * ca).toFixed(2), y2 = (50 + 33 * sa).toFixed(2);
+    wires += '<line class="wire" id="w' + i + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"/>';
+    if (!reduce) {
+      var path = i % 2 ? 'M' + x2 + ',' + y2 + ' L' + x1 + ',' + y1 : 'M' + x1 + ',' + y1 + ' L' + x2 + ',' + y2;
+      wires += '<circle class="pkt' + (i % 2 ? ' c' : '') + '" r="0.9"><animateMotion dur="' + (1.8 + (i * 0.37) % 1.4).toFixed(2) + 's" begin="-' + (i * 0.53).toFixed(2) + 's" repeatCount="indefinite" path="' + path + '"/></circle>';
+    }
+  }
+  $('wires').innerHTML = wires;
+
+  /* Hovering a link lights up its node and wire in the hub */
+  function hot(n, on) {
+    var wire = $('w' + n);
+    if (wire) wire.classList.toggle('hot', on);
+    if (nodes[n]) nodes[n].classList.toggle('hot', on);
+  }
+  [].forEach.call(document.querySelectorAll('[data-node]'), function (link) {
+    var n = link.getAttribute('data-node');
+    link.addEventListener('mouseenter', function () { hot(n, true); });
+    link.addEventListener('mouseleave', function () { hot(n, false); });
+    link.addEventListener('focus', function () { hot(n, true); });
+    link.addEventListener('blur', function () { hot(n, false); });
+  });
+
+  /* Video cards */
+  var YT = 'https://www.youtube.com/';
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]; }); }
+  function clean(t) { return t.replace(/\s*#[^\s#]+/g, '').trim() || t; }
+  function fmt(n) { return n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K' : String(n); }
+  function ago(iso) {
+    var d = (Date.now() - Date.parse(iso)) / 864e5;
+    if (!(d >= 0)) return '';
+    if (d < 1) return 'today';
+    if (d < 30) return Math.floor(d) + 'd ago';
+    if (d < 365) return Math.floor(d / 30.4) + ' mo ago';
+    return Math.floor(d / 365) + 'y ago';
+  }
+  function card(v, cls) {
+    var title = clean(v.title), dur = v.dur || DUR[v.id], sub = [];
+    if (v.views) sub.push(fmt(v.views) + ' views');
+    if (v.published && !v.short) sub.push(ago(v.published));
+    var img = 'https://i.ytimg.com/vi/' + v.id + '/' + (v.short || cls === 'feat' ? 'hqdefault' : 'mqdefault') + '.jpg';
+    return '<a class="vid ' + cls + (v.short ? ' short' : '') + '" href="' + YT + (v.short ? 'shorts/' : 'watch?v=') + v.id + '" target="_blank" rel="noopener" data-id="' + v.id + '">' +
+      '<span class="th"><img src="' + img + '" alt="" loading="lazy" decoding="async"><span class="play" aria-hidden="true">▶</span>' +
+      (dur && !v.short ? '<span class="dur">' + dur + '</span>' : '') + (cls === 'feat' ? '<span class="badge">Latest drop</span>' : '') + '</span>' +
+      '<span class="meta"><span class="t">' + esc(title) + '</span>' + (sub.length ? '<span class="s">' + sub.join(' · ') + '</span>' : '') + '</span></a>';
+  }
+
+  var shorts = [], shortSort = 'top';
+  function drawShorts() {
+    var list = shorts.slice().sort(shortSort === 'top'
+      ? function (p, q) { return q.views - p.views; }
+      : function (p, q) { return Date.parse(q.published) - Date.parse(p.published); });
+    $('r-shorts').innerHTML = list.map(function (v) { return card(v, ''); }).join('');
+  }
+  function render(feed) {
+    var long = feed.filter(function (v) { return !v.short; });
+    shorts = feed.filter(function (v) { return v.short; });
+    if (long.length) {
+      $('feat').innerHTML = card(long[0], 'feat');
+      $('r-recent').innerHTML = long.slice(1, 7).map(function (v) { return card(v, ''); }).join('');
+    }
+    drawShorts();
+  }
+  $('r-best').innerHTML = BEST.map(function (v) { return card(v, ''); }).join('');
+  render(FEED);
+
+  /* Swap in the live channel feed when served from the site */
+  if (/^https?:$/.test(location.protocol) && window.fetch) {
+    fetch('/api/youtube').then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }).then(function (d) {
+      if (!d.videos || !d.videos.length) return;
+      render(d.videos);
+      var tag = $('yt-live'); tag.textContent = 'Live'; tag.classList.add('on');
+    }).catch(function () {});
+  }
+
+  [].forEach.call(document.querySelectorAll('.chip[data-sort]'), function (chip, _, all) {
+    chip.addEventListener('click', function () {
+      shortSort = chip.getAttribute('data-sort');
+      [].forEach.call(all, function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+      drawShorts();
+      $('r-shorts').scrollLeft = 0;
+    });
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-rail]');
+    if (!b) return;
+    var rail = $(b.getAttribute('data-rail'));
+    rail.scrollBy({ left: b.getAttribute('data-dir') * rail.clientWidth * 0.8, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  /* Play videos in an on-page player; modified clicks still open YouTube */
+  var dlg = $('player'), frame = dlg.querySelector('.pl-frame');
+  if (dlg.showModal) {
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a.vid');
+      if (!link || e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      var id = link.getAttribute('data-id'), short = link.classList.contains('short');
+      dlg.classList.toggle('short', short);
+      frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+      $('pl-title').textContent = link.querySelector('.t').textContent;
+      $('pl-open').href = link.href;
+      dlg.showModal();
+    });
+    $('pl-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', function () { frame.innerHTML = ''; });
+  }
+
+  /* Instagram embeds, loaded only when the section comes into view */
+  if (IG_POSTS.length) {
+    var ig = $('r-ig');
+    ig.innerHTML = IG_POSTS.map(function (u) {
+      return '<div><blockquote class="instagram-media" data-instgrm-permalink="' + esc(u) + '" data-instgrm-version="14"><a href="' + esc(u) + '" target="_blank" rel="noopener">View on Instagram</a></blockquote></div>';
+    }).join('');
+    ig.hidden = false;
+    var loadIg = function () {
+      var s = document.createElement('script');
+      s.src = 'https://www.instagram.com/embed.js'; s.async = true;
+      document.body.appendChild(s);
+    };
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { io.disconnect(); loadIg(); }
+      }, { rootMargin: '400px' });
+      io.observe(ig);
+    } else loadIg();
+  }
 })();
 </script>
 </body>
